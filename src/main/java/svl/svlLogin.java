@@ -5,49 +5,46 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import bean.Alumno;
-import dao.AlumnoDAO;
 import java.io.IOException;
 
+import bean.Alumno;
+import dao.AlumnoDAO;
+
 /**
- * Servlet implementation class svlAlumno
+ * Servlet implementation class svlLogin
  */
-public class svlAlumno extends HttpServlet {
+public class svlLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public svlAlumno() {
+    public svlLogin() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-  protected void proccesRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+ protected void proccesRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     	
     	AlumnoDAO dao = new AlumnoDAO();
     	response.setCharacterEncoding("UTF-8");
 		
+    	String nombre = request.getParameter("txtCorreo");
+		String apellido=request.getParameter("txtContra");
 		
-		String nombre = request.getParameter("txtNombres");
-		String apellido=request.getParameter("txtApellido");
-		String correo=request.getParameter("txtCorreo");
-		String contra=request.getParameter("txtContra");
-		Alumno alu = new Alumno();
-		alu.setNombres(nombre);
-		alu.setApellidos(apellido);
-		alu.setCorreo(correo);
-		alu.setContraseña(contra);
+		boolean b = dao.ValidarUser(nombre, apellido);
 		
-		try {
-				dao.agregarAlumno(alu);
-					response.sendRedirect("inicio.jsp");
-				
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (b==true) {
+			
+			
+			
+		response.sendRedirect("Bienvenida.jsp");
+
+		}else  {
+			response.sendRedirect("fail.jsp");	
+			
 		}
-	
+		
 		
 	
 			

@@ -19,4 +19,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>svlLogin</display-name>
+    <servlet-name>svlLogin</servlet-name>
+    <servlet-class>svl.svlLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>svlLogin</servlet-name>
+    <url-pattern>/svlLogin</url-pattern>
+  </servlet-mapping>
 </web-app>
