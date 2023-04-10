@@ -38,9 +38,7 @@
     
 </head>
 
- <div class="alert alert-danger" role="alert">
-  This is a danger alert—check it out!
-</div>   
+   
 <body>
  
     <section class="vh-100">

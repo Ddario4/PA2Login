@@ -1,10 +1,14 @@
 package svl;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.ServletRequest;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import jakarta.websocket.Session;
+
 import java.io.IOException;
 
 import bean.Alumno;
@@ -28,16 +32,19 @@ public class svlLogin extends HttpServlet {
     	
     	AlumnoDAO dao = new AlumnoDAO();
     	response.setCharacterEncoding("UTF-8");
-		
-    	String nombre = request.getParameter("txtCorreo");
-		String apellido=request.getParameter("txtContra");
-		
-		boolean b = dao.ValidarUser(nombre, apellido);
+    	HttpSession session = request.getSession();
+    	
+    	String correo = request.getParameter("txtCorreo");
+		String contra=request.getParameter("txtContra");
+			Object id=dao.ObtenerIdAlumno(correo, contra)	;
+		boolean b = dao.ValidarUser(correo, contra);
 		
 		if (b==true) {
 			
-			
-			
+	
+		
+		
+		session.setAttribute("id",id);
 		response.sendRedirect("Bienvenida.jsp");
 
 		}else  {

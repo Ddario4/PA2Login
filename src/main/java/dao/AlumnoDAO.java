@@ -61,8 +61,47 @@ public class AlumnoDAO {
 		    }
 
 	
-	
+	  public int ObtenerIdAlumno(String correo, String contraseña)
+      {
+		  int id = 0; 
+		  try(Connection conn =  DriverManager.getConnection( String.format("jdbc:mysql://%s:%s/%s",_IP,_PORT,_BD ), _USER, _PASSWORD);
+		            CallableStatement cs = conn.prepareCall("{call validar_user(?,?)}")) 
+		        {
+		            
+		            cs.setString(1, correo);
+		            cs.setString(2, contraseña);
+		            cs.execute();
+		            rs = cs.executeQuery();
+		             
+		            if (rs.next()) {
+		            	id=  rs.getInt("idAlumno");
+		            }
+		            
+		            conn.close();
+		            cs.close();
+		        }
+		       catch (SQLException e) {
+		            e.printStackTrace();
+		        }
+		        
+		        return id;
+		    }
 	
 
+	  public void cambiarContrasena(int idAlumno, String contrasenaAnterior, String nuevaContrasena)  {
+		    String sql = "{CALL cambiar_contrasena(?, ?, ?)}";
+			  try(Connection conn =  DriverManager.getConnection( String.format("jdbc:mysql://%s:%s/%s",_IP,_PORT,_BD ), _USER, _PASSWORD);
+		        CallableStatement cs = conn.prepareCall(sql)) {
+		    	cs.setInt(1, idAlumno);
+		    	cs.setString(2, contrasenaAnterior);
+		    	cs.setString(3, nuevaContrasena);
+		    	 cs.executeUpdate();
+		            
+		            System.out.println("Editado exitosamente.");
+		        } catch(SQLException e) {
+		            e.printStackTrace();
+		        }
+		    }
+}	
 
-}
+
