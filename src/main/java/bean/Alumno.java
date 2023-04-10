@@ -35,13 +35,7 @@ public class Alumno {
 		this.contraseña = contraseña;
 	}
 
-	public Alumno(String nombres, String apellidos, String correo, String contraseña) {
-		
-		this.nombres = nombres;
-		this.apellidos = apellidos;
-		this.correo = correo;
-		this.contraseña = contraseña;
-	}
+	
 
 	public Alumno() {
 		

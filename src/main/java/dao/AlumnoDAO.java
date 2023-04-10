@@ -12,7 +12,7 @@ public class AlumnoDAO {
 	
 	public void agregarAlumno(Alumno alumno) {
 	        try(Connection conn =  DriverManager.getConnection( String.format("jdbc:mysql://%s:%s/%s",_IP,_PORT,_BD ), _USER, _PASSWORD);
-	            CallableStatement cs = conn.prepareCall("{CALL agregar_alumno(?,?,?,?)}")) {
+	            CallableStatement cs = conn.prepareCall("{CALL RegistrarAlumno(?,?,?,?)}")) {
 	            
 	            cs.setString(1, alumno.getNombres());
 	            cs.setString(2, alumno.getApellidos());
